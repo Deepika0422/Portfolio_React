@@ -105,4 +105,13 @@
     font-size: 11px;
     padding: 3px;
   }
+  .project-box {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.project-box {
+  display: flex;
+  justify-content: space-around;
 }

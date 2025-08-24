@@ -1,38 +1,27 @@
 import "./Skills.css";
-
-const Frontend = ["HTML", "CSS", "JavaScript", "React"];
-const Backend = ["MongoDB", "MySQL", "Servlets", "PHP"];
-const Tools = ["Git", "Docker", "Postman", "VS Code"];
+import { useContext } from "react";
+import { AppContext } from "../App";
 
 const Skills = () => {
+  const user = useContext(AppContext);
   return (
     <div className="skill-container" id="skills">
       <h1 className="skill-title">Skills</h1>
-      <div className="skill-box">
-        <div className="skill-section">
-          <h2>Frontend</h2>
-          <ul>
-            {Frontend.map((skill, index) => (
-              <li key={index}>{skill}</li>
+      <div>
+        {user.map((userData, index) => (
+          <div key={index} className="skill-box">
+            {userData.skills.map((skillData, index) => (
+              <div className="skill-section" key={index}>
+                <h2>{skillData.skillTitle}</h2>
+                <ul>
+                  {skillData.skill.map((s, index) => (
+                    <li key={index}>{s}</li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
-        </div>
-        <div className="skill-section">
-          <h2>Backend</h2>
-          <ul>
-            {Backend.map((skill, index) => (
-              <li key={index}>{skill}</li>
-            ))}
-          </ul>
-        </div>
-        <div className="skill-section">
-          <h2>Tools</h2>
-          <ul>
-            {Tools.map((skill, index) => (
-              <li key={index}>{skill}</li>
-            ))}
-          </ul>
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );
