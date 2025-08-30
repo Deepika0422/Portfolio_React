@@ -12,7 +12,7 @@ const SignUp = () => {
     e.preventDefault();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!username || !email || !message) {
+    if (!username || !email || !password) {
       alert("Please fill in all fields");
       return;
     }
@@ -31,40 +31,48 @@ const SignUp = () => {
       navigate("/");
     } catch (err) {
       console.log("error while Sign " + err);
-      alert("Please Enter Valid Credentials");
+      alert("Please Enter Valid Credentials,May be the User already exists");
     }
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Enter Username"
-        value={username}
-        onChange={(e) => {
-          setUsername(e.target.value);
-        }}
-        required
-      />
-      <input
-        type="text"
-        placeholder="Enter Email"
-        value={email}
-        onChange={(e) => {
-          setEmail(e.target.value);
-        }}
-        required
-      />
-      <input
-        type="password"
-        placeholder="Enter Password"
-        value={password}
-        onChange={(e) => {
-          setpassword(e.target.value);
-        }}
-        required
-      />
-      <button onClick={handleSubmit}>Sign In</button>
+    <div className="body">
+      <div className="form">
+        <h2>Sign in</h2>
+        <input
+          type="text"
+          placeholder="Enter Username"
+          value={username}
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
+          className="input-box"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Enter Email"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+          className="input-box"
+          required
+        />
+        <input
+          type="password"
+          placeholder="Enter Password"
+          value={password}
+          onChange={(e) => {
+            setpassword(e.target.value);
+          }}
+          className="input-box"
+          required
+        />
+        <button onClick={handleSubmit} className="sign-in">
+          Sign In
+        </button>
+      </div>
     </div>
   );
 };
