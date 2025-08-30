@@ -21,28 +21,30 @@ const Dashboard = () => {
   }, [navigate]);
 
   return (
-    <div className="dashboard">
-      <h1 className="dash-title">Portfolio Dashboard</h1>
-      <p className="msg">{message} !!!</p>
-      <p className="btns">
-        <span
-          className="enter"
-          onClick={() => {
-            navigate("/portfolio");
-          }}
-        >
-          Enter Portfolio
-        </span>
-        <span
-          className="logout"
-          onClick={() => {
-            localStorage.removeItem("token");
-            navigate("/");
-          }}
-        >
-          Logout
-        </span>
-      </p>
+    <div className="body">
+      <div className="dashboard">
+        <h1 className="dash-title">Portfolio Dashboard</h1>
+        <p className="msg">{message} !!!</p>
+        <p className="btns">
+          <span
+            className="enter"
+            onClick={() => {
+              navigate("/portfolio");
+            }}
+          >
+            Enter Portfolio
+          </span>
+          <span
+            className="logout"
+            onClick={() => {
+              localStorage.removeItem("token");
+              navigate("/");
+            }}
+          >
+            Logout
+          </span>
+        </p>
+      </div>
     </div>
   );
 };

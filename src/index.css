@@ -7,14 +7,20 @@
   scroll-behavior: smooth;
 }
 
+.body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+}
 .form {
-  width: 40%;
-  height: 90%;
+  width: 400px;
   margin: auto;
-  margin-top: 10%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 30px;
   padding: 40px;
   border: 1px solid gray;
@@ -42,26 +48,30 @@ h2 {
   color: black;
 }
 
+.input-box {
+  width: 100%;
+}
+
 p {
   color: rgb(199, 199, 199);
   font-size: 15px;
 }
 
-.dashboard {
-  height: 100vh;
-  width: 100vh;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  position: relative;
-}
-
 .msg {
   font-size: 20px;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.dash-title {
+  font-size: 35px;
+  color: white;
 }
 
 .btns {
