@@ -8,6 +8,17 @@ const Contact = () => {
 
   const HandleSubmit = (e) => {
     e.preventDefault();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!name || !email || !message) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address");
+      return;
+    }
     const url = "http://localhost:8000";
     try {
       fetch(url + "/contactDb", {
@@ -76,7 +87,7 @@ const Contact = () => {
               }}
             />
             <input
-              type="text"
+              type="email"
               placeholder="Your Email"
               id="email"
               required
