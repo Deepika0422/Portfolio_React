@@ -12,6 +12,7 @@ const AuthSchema = new mongoose.Schema({
   username: String,
   email: { type: String, unique: true },
   password: String,
+  role: { type: String, default: "user" }, // 'user' or 'admin'
 });
 
 const AuthModel = UserAuthDb.model("auth", AuthSchema);

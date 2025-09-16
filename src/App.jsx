@@ -13,14 +13,16 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 export const AppContext = createContext();
 
-function PortfolioPage({ user }) {
+function PortfolioPage({ user, refetchUsers }) {
+  const role = localStorage.getItem("role") || "user";
+  const contextValue = { user, role, refetchUsers };
   return (
     <div className="container">
       <Navbar />
       <div>
         <Home />
 
-        <AppContext.Provider value={user}>
+        <AppContext.Provider value={contextValue}>
           <About />
           <Projects />
           <Skills />
@@ -34,17 +36,23 @@ function PortfolioPage({ user }) {
 
 function App() {
   const [user, setUser] = useState([]);
+  const [role, setRole] = useState(localStorage.getItem("role") || "user");
 
   const getUsers = async () => {
     const url = await fetch("http://localhost:8000/userDb");
     const data = await url.json();
     setUser(data);
+    setRole(localStorage.getItem("role") || "user");
     console.log(data);
   };
 
   useEffect(() => {
     getUsers();
   }, []);
+
+  const refetchUsers = () => {
+    getUsers();
+  };
 
   return (
     <BrowserRouter basename="/Portfolio_React">
@@ -63,7 +71,7 @@ function App() {
           path="/portfolio"
           element={
             <PrivateRoute>
-              <PortfolioPage user={user} />
+              <PortfolioPage user={user} refetchUsers={refetchUsers} />
             </PrivateRoute>
           }
         />

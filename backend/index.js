@@ -11,6 +11,26 @@ app.use(cors());
 app.use(express.json());
 const port = 8000;
 
+// Middleware to verify admin role
+const verifyAdmin = (req, res, next) => {
+  const token = req.headers["authorization"];
+  if (!token) {
+    return res.status(401).json({ error: "Token not provided" });
+  }
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ error: "Error while verifying the user" });
+    }
+    if (decoded.role !== "admin") {
+      return res
+        .status(403)
+        .json({ error: "Access denied. Admin role required." });
+    }
+    req.userId = decoded.id;
+    next();
+  });
+};
+
 // Saving Contact Details
 
 app.post("/contactDb", async (req, res) => {
@@ -35,17 +55,49 @@ app.get("/userDb", async (req, res) => {
   }
 });
 
+// Updating User Portfolio details (Admin only)
+
+app.put("/userDb", verifyAdmin, async (req, res) => {
+  const { about, projects, skills } = req.body;
+  try {
+    const updatedData = {};
+    if (about !== undefined) {
+      updatedData["data.0.about"] = about;
+      updatedData["about"] = about;
+    }
+    if (projects !== undefined) updatedData["projects"] = projects;
+    if (skills !== undefined) updatedData["skills"] = skills;
+
+    const updatedUser = await user.findOneAndUpdate(
+      {},
+      { $set: updatedData },
+      { new: true, upsert: true }
+    );
+    res
+      .status(200)
+      .json({ message: "Portfolio updated successfully", data: updatedUser });
+  } catch (err) {
+    console.log("error while updating user data" + err);
+    res.status(500).json({ error: "Error updating portfolio" });
+  }
+});
+
 // -------------------------------------------- SignUp -----------------------------------------------//
 
 app.post("/signup", async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, role } = req.body;
   try {
     const existingUser = await AuthUser.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ error: "Email already exists!" });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new AuthUser({ username, email, password: hashedPassword });
+    const newUser = new AuthUser({
+      username,
+      email,
+      password: hashedPassword,
+      role: role || "user",
+    });
     await newUser.save();
     res.status(201).json({ message: "User Registered successfully" });
   } catch (err) {
@@ -73,6 +125,7 @@ app.post("/login", async (req, res) => {
     const token = jwt.sign(
       {
         id: existingUser._id,
+        role: existingUser.role, // include role in token
       },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
@@ -101,6 +154,7 @@ app.get("/dashboard", async (req, res) => {
     res.status(200).json({
       message: "Welcome to your portfolio",
       id: decoded.id,
+      role: decoded.role, // include role in response
     });
   });
 });

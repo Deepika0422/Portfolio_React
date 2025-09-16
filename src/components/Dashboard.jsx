@@ -4,6 +4,7 @@ import axios from "axios";
 
 const Dashboard = () => {
   const [message, setMessage] = useState("");
+  const [role, setRole] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,6 +15,8 @@ const Dashboard = () => {
       })
       .then((res) => {
         setMessage(res.data.message);
+        setRole(res.data.role);
+        localStorage.setItem("role", res.data.role); // store role
       })
       .catch(() => {
         navigate("/");

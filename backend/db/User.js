@@ -7,23 +7,19 @@ userDb.on("connected", () => {
 });
 
 const userSchema = new mongoose.Schema({
-  data: [
+  about: String,
+  projects: [
     {
-      about: String,
-      projects: [
-        {
-          projectTitle: String,
-          projectDesc: String,
-          projectTools: [String],
-          projectLink: String,
-        },
-      ],
-      skills: [
-        {
-          skillsTitle: String,
-          skill: [String],
-        },
-      ],
+      projectTitle: String,
+      projectDesc: String,
+      projectTools: [String],
+      projectLink: String,
+    },
+  ],
+  skills: [
+    {
+      skillsTitle: String,
+      skill: [String],
     },
   ],
 });
