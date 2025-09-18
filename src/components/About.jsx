@@ -50,8 +50,12 @@ const About = () => {
               cols="50"
             />
             <br />
-            <button onClick={handleSave}>Save</button>
-            <button onClick={() => setIsEditing(false)}>Cancel</button>
+            <button onClick={handleSave} className="save">
+              Save
+            </button>
+            <button onClick={() => setIsEditing(false)} className="cancel">
+              Cancel
+            </button>
           </div>
         ) : (
           user.map((userData, index) => {
@@ -60,7 +64,9 @@ const About = () => {
           })
         )}
         {role === "admin" && !isEditing && (
-          <button onClick={handleEdit}>Edit About</button>
+          <button onClick={handleEdit} className="edit">
+            Edit About
+          </button>
         )}
       </div>
     </div>

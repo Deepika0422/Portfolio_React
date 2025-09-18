@@ -119,3 +119,40 @@ p {
   align-items: center;
   gap: 30px;
 }
+
+.edit,
+.delete,
+.save,
+.cancel,
+.add-btn,
+.skill-add-btn {
+  width: 100px;
+  padding: 10px;
+  color: white;
+  background-color: rgb(228, 10, 10);
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+.edit {
+  background-color: green;
+}
+
+.save {
+  background-color: yellow;
+  color: black;
+}
+
+.add-btn {
+  background-color: rgb(40, 172, 238);
+  margin-top: 100px;
+}
+
+.skill-add-btn {
+  margin-left: 170px;
+  width: 150px;
+  background-color: rgb(40, 172, 238);
+}

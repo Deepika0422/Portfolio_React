@@ -124,8 +124,12 @@ const Skills = () => {
                       onChange={(e) => handleSkillListChange(e.target.value)}
                       placeholder="Skills (comma separated)"
                     />
-                    <button onClick={handleSave}>Save</button>
-                    <button onClick={handleCancel}>Cancel</button>
+                    <button onClick={handleSave} className="save">
+                      Save
+                    </button>
+                    <button onClick={handleCancel} className="cancel">
+                      Cancel
+                    </button>
                   </>
                 ) : (
                   <>
@@ -136,12 +140,20 @@ const Skills = () => {
                       ))}
                     </ul>
                     {role === "admin" && (
-                      <>
-                        <button onClick={() => handleEdit(idx)}>Edit</button>
-                        <button onClick={() => handleDelete(idx)}>
+                      <div className="project-btn">
+                        <button
+                          onClick={() => handleEdit(idx)}
+                          className="edit"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(idx)}
+                          className="delete"
+                        >
                           Delete
                         </button>
-                      </>
+                      </div>
                     )}
                   </>
                 )}
@@ -166,14 +178,20 @@ const Skills = () => {
                 onChange={(e) => handleSkillListChange(e.target.value)}
                 placeholder="Skills (comma separated)"
               />
-              <button onClick={handleSave}>Save</button>
-              <button onClick={handleCancel}>Cancel</button>
+              <button onClick={handleSave} className="save">
+                Save
+              </button>
+              <button onClick={handleCancel} className="cancel">
+                Cancel
+              </button>
             </div>
           )}
         </div>
       </div>
       {role === "admin" && (
-        <button onClick={handleAddSkill}>Add Skill Category</button>
+        <button onClick={handleAddSkill} className="skill-add-btn">
+          Add Skill Category
+        </button>
       )}
     </div>
   );

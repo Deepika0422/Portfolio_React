@@ -11,6 +11,21 @@ app.use(cors());
 app.use(express.json());
 const port = 8000;
 
+// Middleware to verify user is logged in
+const verifyUser = (req, res, next) => {
+  const token = req.headers["authorization"];
+  if (!token) {
+    return res.status(401).json({ error: "Token not provided" });
+  }
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ error: "Error while verifying the user" });
+    }
+    req.userId = decoded.id;
+    next();
+  });
+};
+
 // Middleware to verify admin role
 const verifyAdmin = (req, res, next) => {
   const token = req.headers["authorization"];
@@ -55,9 +70,9 @@ app.get("/userDb", async (req, res) => {
   }
 });
 
-// Updating User Portfolio details (Admin only)
+// Updating User Portfolio details
 
-app.put("/userDb", verifyAdmin, async (req, res) => {
+app.put("/userDb", verifyUser, async (req, res) => {
   const { about, projects, skills } = req.body;
   try {
     const updatedData = {};

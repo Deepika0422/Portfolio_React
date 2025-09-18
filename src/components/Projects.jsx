@@ -144,8 +144,12 @@ const Projects = () => {
                       }
                       placeholder="Project Tools (comma separated)"
                     />
-                    <button onClick={handleSave}>Save</button>
-                    <button onClick={handleCancel}>Cancel</button>
+                    <button onClick={handleSave} className="save">
+                      Save
+                    </button>
+                    <button onClick={handleCancel} className="cancel">
+                      Cancel
+                    </button>
                   </>
                 ) : (
                   <>
@@ -158,12 +162,20 @@ const Projects = () => {
                     </div>
                     <a href={project.projectLink}>Project Link</a>
                     {role === "admin" && (
-                      <>
-                        <button onClick={() => handleEdit(idx)}>Edit</button>
-                        <button onClick={() => handleDelete(idx)}>
+                      <div className="project-btn">
+                        <button
+                          onClick={() => handleEdit(idx)}
+                          className="edit"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(idx)}
+                          className="delete"
+                        >
                           Delete
                         </button>
-                      </>
+                      </div>
                     )}
                   </>
                 )}
@@ -208,14 +220,20 @@ const Projects = () => {
                 }
                 placeholder="Project Tools (comma separated)"
               />
-              <button onClick={handleSave}>Save</button>
-              <button onClick={handleCancel}>Cancel</button>
+              <button onClick={handleSave} className="save">
+                Save
+              </button>
+              <button onClick={handleCancel} className="cancel">
+                Cancel
+              </button>
             </div>
           )}
         </div>
       </div>
       {role === "admin" && (
-        <button onClick={handleAddProject}>Add Project</button>
+        <button onClick={handleAddProject} className="add-btn">
+          Add Project
+        </button>
       )}
     </div>
   );
